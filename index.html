@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Geography 课程全集门户</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-sub: #7f8c8d;
+            --primary: #3498db;
+            --primary-hover: #2980b9;
+            --onedrive-color: #0078d4;
+            --onedrive-hover: #005a9e;
+            --ppt-color: #e74c3c;
+            --doc-color: #2e86de;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.6rem;
+            margin-bottom: 10px;
+            color: #1a2a3a;
+        }
+
+        header p {
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        /* OneDrive 核心大按钮 */
+        .onedrive-master {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 35px;
+        }
+
+        .btn-master {
+            background-color: var(--onedrive-color);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 120, 212, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-master:hover {
+            background-color: var(--onedrive-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 120, 212, 0.4);
+        }
+
+        /* 搜索框 */
+        .search-container {
+            margin-bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        /* 章节网格 */
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            padding: 25px;
+            transition: all 0.2s ease;
+            border-top: 4px solid var(--primary);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        .chapter-card h2 {
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: #2c3e50;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+        }
+
+        .file-info {
+            display: flex;
+            flex-direction: column;
+            max-width: 65%;
+        }
+
+        .file-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .type-ppt { color: var(--ppt-color); }
+        .type-doc { color: var(--doc-color); }
+
+        .btn-open {
+            background-color: #64748b;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-open:hover { background-color: #475569; }
+        .btn-ppt { background-color: var(--ppt-color); }
+        .btn-ppt:hover { background-color: #c0392b; }
+        .btn-doc { background-color: var(--doc-color); }
+        .btn-doc:hover { background-color: #1e6bb8; }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Human Geography 课程全集门户</h1>
+        <p>包含全部 13 个章节 • 共 26 个学习资源</p>
+    </header>
+
+    <div class="onedrive-master">
+        <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-master" target="_blank">
+            📂 点击进入本地 OneDrive 26项全集仓库
+        </a>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" onkeyup="filterChapters()" placeholder="输入章节序号或关键词搜索 (如: Ch 3 或 Population)...">
+    </div>
+
+    <div class="chapters-grid" id="gridContainer">
+        
+        <div class="chapter-card">
+            <h2>Ch 1: This Is Geography</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 1 (1).pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 1 Lecture Notes (2).docx</span><span class="file-type type-doc">Word 讲义说明</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 2: Population & Health</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 2.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 2.doc</span><span class="file-type type-doc">Word 课程大纲</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 3: Migration</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 3.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 3.doc</span><span class="file-type type-doc">Word 课程大纲</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 4: Folk & Popular Culture</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 4.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 4.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 5: Languages</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 5.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 5.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 6: Religions</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 6.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 6.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 7: Ethnicities</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 7.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 7.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 8: Political Geography</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 8.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 8.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 9: Food & Agriculture</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 9.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 9.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 10: Development</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 10.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 10.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 11: Industry & Energy</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 11.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 11.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 12: Services & Settlements</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 12.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 12.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="chapter-card">
+            <h2>Ch 13: Urban Patterns</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">Chapter 13.pptx</span><span class="file-type type-ppt">PPT 演示文稿</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-ppt" target="_blank">直达预览</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info"><span class="file-name">CHAPTER 13.doc</span><span class="file-type type-doc">Word 文档</span></div>
+                    <a href="https://1drv.ms/f/c/94f5452d7ab92ab5/IgAHY0jjCIu2QLqy1IjQ8ICiAd35Fl98fVpkqm5o_Jru4s0?e=svyw6c" class="btn-open btn-doc" target="_blank">直达预览</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Human Geography 个人数字图书馆 • 托管于 GitHub Pages</p>
+    </footer>
+</div>
+
+<script>
+    // 动态搜索过滤功能
+    function filterChapters() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        let cards = document.getElementsByClassName('chapter-card');
+        
+        for (let i = 0; i < cards.length; i++) {
+            let cardText = cards[i].innerText.toLowerCase();
+            if (cardText.includes(input)) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
