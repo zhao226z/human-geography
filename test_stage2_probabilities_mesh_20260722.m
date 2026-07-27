@@ -665,15 +665,16 @@ newRunTPs = sort(tubi.xp.fileMeta.timePoints(:)') ;
 firstFrameSeedSrc  = fullfile(dataDir,'tubular_output','msls_000000.mat') ;
 firstFrameSeedCopy = '/mnt/data/zeyuzhao/msls_000000_seed_newrun.mat' ;
 
-% Segmentation params for the run. Defaults to Haibei's confirmed baseline
-% (BASELINE_* constants defined in QUESTION 7 above). Override here if you
-% want the tuned set instead.
-RUN_TENSION       = BASELINE_TENSION ;
-RUN_PRE_PRESSURE  = BASELINE_PRE_PRESSURE ;
-RUN_POST_PRESSURE = BASELINE_POST_PRESSURE ;
-RUN_PRESSURE      = BASELINE_PRESSURE ;
-RUN_NITER         = 35 ;    % Haibei's baseline; raise for more evolution (slower)
-RUN_SMOOTH_MATLAB = 1 ;     % >0 => MATLAB smoothing, no meshlabserver
+% Segmentation params for the run -- the tuned set (lower-ish tension +
+% expansive contraction bias) that fixed the "too short" shrinkage during
+% the tp=1 experiments. Switch any of these back to the BASELINE_*
+% constants (defined in QUESTION 7 above) if you want Haibei's baseline.
+RUN_TENSION       = 0.7 ;
+RUN_PRE_PRESSURE  = -10 ;
+RUN_POST_PRESSURE = 1 ;
+RUN_PRESSURE      = 0.05 ;   % ContractionBias = -pressure -> biases contour to EXPAND
+RUN_NITER         = 250 ;    % was 35 (Haibei's) -- more evolution, SLOW per timepoint
+RUN_SMOOTH_MATLAB = 1 ;      % >0 => MATLAB smoothing, no meshlabserver
 
 % Backup locations (all originals preserved before the run):
 fullBackupDir = '/mnt/data/zeyuzhao/full_backup_before_newprob_run' ;
